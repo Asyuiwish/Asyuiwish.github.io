@@ -1,0 +1,12 @@
+{
+  "name": "yuna",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Asyuiwish/Asyuiwish.github.io.git",
+  "author": "Asyuiwish <289155951@qq.com>",
+  "license": "MIT",
+    "scripts": {
+      "docs:dev": "vuepress dev docs",
+      "docs:build": "vuepress build docs"
+    }
+}
