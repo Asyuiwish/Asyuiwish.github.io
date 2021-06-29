@@ -1,11 +1,11 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: dosc
 
 on: # 触发条件
   # 每当 push 到 master 分支时触发部署
   push:
-    branches: [master]
+    branches: [main]
   # 是否手动触发部署
   workflow_dispatch:
 
