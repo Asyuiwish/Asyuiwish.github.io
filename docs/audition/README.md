@@ -1,8 +1,8 @@
-# Hello VuePress!
-这个玩意真的太难整了！！！
-
-记一些语法：
-
+# Hello VuePress!  
+这些玩意真的太难整了！！！
+记一些语法： 
+## 代码块   
+【这个代码块有点丑 想想办法】
 ``` html
 <div>
     <p></p>
@@ -45,6 +45,8 @@ $(document).ready(function () {
         <div></div>
     </div>
 
+## 表格  
+
 **代码1(有序)**
 
 注：序列`.`后 保持空格 
@@ -83,7 +85,7 @@ $(document).ready(function () {
 
 * * *
 
-### 语义标记
+## 语义标记
 
 | 描述 | 效果 | 代码 |
 | --- | --- | --- |
@@ -96,7 +98,7 @@ $(document).ready(function () {
 
 * * *
 
-### 语义标签
+## 语义标签
 
 | 描述 | 效果 | 代码 |
 | --- | --- | --- |
@@ -136,13 +138,13 @@ this is a tip
 **换行**
 <br>1<br>1
 
-# 链接
+## 链接
 这是一个链接 [菜鸟教程](https://www.runoob.com)  
 直接使用链接地址:<https://www.runoob.com>  
 这个链接用 1 作为网址变量 [Google][1]  
 这个链接用 runoob 作为网址变量 [Runoob][runoob]  
 然后在文档的结尾为变量赋值（网址）  
-# 图片
+## 图片
 ![RUNOOB 图标](http://static.runoob.com/images/runoob-logo.png)
 
 ![RUNOOB 图标](http://static.runoob.com/images/runoob-logo.png "RUNOOB")  
@@ -150,7 +152,7 @@ this is a tip
 然后在文档的结尾为变量赋值（网址）
 指定宽高：<img src="http://static.runoob.com/images/runoob-logo.png" width="50%">
 
-# 符号  
+## 符号  
 符号前面加上反斜杠来帮助插入普通的符号：\#
 
   [2]: http://static.runoob.com/images/runoob-logo.png
