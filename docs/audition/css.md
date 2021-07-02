@@ -14,8 +14,8 @@
 伪元素的本质是`创建一个有内容的虚拟容器`，可以同时使用多个伪类，只能同时使用一个伪元素
 
 ## visiblity:hidden、opticay：0和display：none
-visiblity:hidden占据原先页面空间,`元素的子元素可以设置visibility: visible 显示出来`.  
-display:none 引起页面重绘和回流， visiblity:hidden 只引起页面重绘.
+visiblity:hidden占据原先页面空间,`元素的子元素可以设置visibility: visible 显示出来`。  
+display:none 引起页面重绘和回流， visiblity:hidden 只引起页面重绘。
 
 ## CSS的引入方式
 1. 内联（元素）
@@ -27,5 +27,57 @@ display:none 引起页面重绘和回流， visiblity:hidden 只引起页面重�
 * link除了加载CSS外，还可以定义RSS等其他事务；@import只能加载CSS
 * link引用CSS时，在页面载入时同时加载， @import需要页面完全载入后加载
 * link无兼容问题，@import低版本的浏览器不支持
-* link支持使用Javascript控制DOM去改变样式；而@import不支持。
+* link支持使用Javascript控制DOM去改变样式；而@import不支持
   
+## 画一条0.5px的线
+* meta viewport(移动端)
+* 缩放`:after，transform：scaleY(0.5)` 
+```css
+.div:after {
+    height: 1px;
+    transform: scaleY(0.5);
+    transform-origin: 50% 100%; // 要指定origin值, 要不然会模糊
+    content: "";
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    background: red;
+}
+```
+0.5px边框：
+``` css
+.div:before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    bottom: -50%;
+    left: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+    border: solid 1px red;
+    box-sizing:border-box;
+}
+```
+
+## 过渡和动画
+区别：
+1. 动画不需要事件触发，过渡需要。
+2. 过渡只有一组（两个：开始-结束） 关键帧，动画可以设置多个。  
+
+过渡属性: transition-property: none | all | property;  
+`property` : 定义应用过渡效果的 CSS 属性名称列表，列表以逗号分隔。
+``` css
+div {
+    background:red;
+    transition-property: background;
+    transition-duration: 2s;
+}
+div:hover {
+    background:salmon;
+}
+```  
+

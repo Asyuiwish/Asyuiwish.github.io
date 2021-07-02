@@ -21,10 +21,11 @@ module.exports = {
             { text: '没写完', link: '/audition/' },
             { text: '真的没写完', link: '/question/' }
           ]
-        }
+        },
+        { text: 'GitHub', link:'https://github.com/Asyuiwish' }
     ],
     sidebar:{
-      '/audition/':['','css','javascript','vue'],
+      '/audition/':['','css','javascript','ES6','vue'],
       '/question/':[''],
   },
     // sidebarDepth : 2,
