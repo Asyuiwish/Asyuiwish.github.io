@@ -1,15 +1,15 @@
 module.exports = {
   title: 'Yui的学习笔记',  // 设置网站标题
-  description : 'Yui的学习笔记',
+  // description : 'Yui的学习笔记',
   base : '/daydayup/',
   head: [
     [
         'link', // 设置 favicon.ico，注意图片放在 public 文件夹下
-        { rel: 'icon', href: 'lemon.png' }
+        { rel: 'icon', href: '/lemon.png' }
     ]
   ],
   themeConfig : {
-    logo:'flag.png', //title旁的logo
+    logo:'/flag.png', //title旁的logo
     // search: false,  //禁用搜索
     nav : [
         { text: '首页', link: '/' },
