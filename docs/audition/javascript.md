@@ -23,6 +23,20 @@
    console.log(!!a)  // 判断一个变量是true/false
    ```
 
+## 原型和原型链（显式原型/隐式原型）
+* 所有引用类型（函数，数组，对象）都拥有__proto__属性（隐式原型）
+* 所有函数拥有prototype属性（显式原型）（仅限函数）
+* 原型对象：拥有prototype属性的对象，在定义函数时就被创建
+  
+<b>实例w的隐式原型指向它构造函数的显式原型，指向的意思是恒等于</b>
+
+``` javascript
+w.__proto__ === Word.prototype
+```
+构造函数的原型链：`tsrot ==》 Person.prototype ==》 Object.prototype ==》 null`  
+
+![原型](../.vuepress/public/js_3.png)
+
 ## 判断是否为空对象方法
 * 将json对象转化为json字符串，再判断该字符串是否为"{}"
     ``` javascript
@@ -144,26 +158,27 @@
 1. JSON对象的parse和stringify
 parse方法:将JSON字符串反序列化成JS对象；
 stringify方法：将JS对象序列化成JSON字符。
-``` javascript
-    //例1
-    var source = { name:"source", child:{ name:"child" } } 
-    var target = JSON.parse(JSON.stringify(source));
-    target.name = "target";  //改变target的name属性
-    console.log(source.name); //source 
-    console.log(target.name); //target
-    target.child.name = "target child"; //改变target的child 
-    console.log(source.child.name); //child 
-    console.log(target.child.name); //target child
-    //例2
-    var source = { name:function(){console.log(1);}, child:{ name:"child" } } 
-    var target = JSON.parse(JSON.stringify(source));
-    console.log(target.name); //undefined
-    //例3
-    var source = { name:function(){console.log(1);}, child:new RegExp("e") }
-    var target = JSON.parse(JSON.stringify(source));
-    console.log(target.name); //undefined
-    console.log(target.child); //Object {}
-```
+
+    ``` javascript
+        //例1
+        var source = { name:"source", child:{ name:"child" } } 
+        var target = JSON.parse(JSON.stringify(source));
+        target.name = "target";  //改变target的name属性
+        console.log(source.name); //source 
+        console.log(target.name); //target
+        target.child.name = "target child"; //改变target的child 
+        console.log(source.child.name); //child 
+        console.log(target.child.name); //target child
+        //例2
+        var source = { name:function(){console.log(1);}, child:{ name:"child" } } 
+        var target = JSON.parse(JSON.stringify(source));
+        console.log(target.name); //undefined
+        //例3
+        var source = { name:function(){console.log(1);}, child:new RegExp("e") }
+        var target = JSON.parse(JSON.stringify(source));
+        console.log(target.name); //undefined
+        console.log(target.child); //Object {}
+    ```
 2. jQuery.extend()
 3. 手写递归
     ``` javascript
@@ -186,6 +201,64 @@ stringify方法：将JS对象序列化成JSON字符。
 <b>区别：浅拷贝只复制指针，深拷贝会另外创造一个一模一样的对象。</b>
 
 
+## 宏任务和微任务
+|  | 宏任务（macrotask） | 微任务（microtask） |
+| :----: | :----: | :----: |
+| 谁发起的 | 宿主（Node、浏览器） | JS引擎 |
+| 具体事件 | script/setTimeout/setInterval/<br>UI rendering/UI事件/<br>postMessage，MessageChannel/<br>setImmediate，I/O（Node.js）| Promise/MutaionObserver/<br>process.nextTick（Node.js）| 
+| 谁先运行 | 后运行 | 先运行 |
+| 会触发新一轮Tick吗 | 会 | 不会 |  
+<br>  
 
+![宏任务和微任务](../.vuepress/public/js_2.jpg)  
 
+<b>区别：宏任务中的事件放在callback queue中，由事件触发线程维护；微任务的事件放在微任务队列中，由js引擎线程维护。</b>
 
+## 事件代理
+概念：把原本需要绑定在子元素的响应事件（click、keydown......）委托给父元素，让父元素担当事件监听的职务。  
+原理：DOM元素的事件冒泡。  
+优点：减少事件注册，减少内存占用；可以动态绑定事件。  
+
+实现方法：
+1. `switch case`
+2. `$(selector).delegate(childSelector, event, data, function)`
+
+## 防抖和节流
+<b>防抖</b>：触发高频事件后n秒内函数只会执行一次，如果n秒内高频事件再次被触发，则重新计算时间。
+
+``` javascript
+//每次触发事件时设置一个延迟调用方法，并且取消之前的延时调用方法
+function debounce(fn) {
+    let timeout = null; // 创建一个标记用来存放定时器的返回值
+    return function () {
+        // 每当用户输入的时候把前一个 setTimeout clear 掉
+        clearTimeout(timeout); 
+        // 然后又创建一个新的 setTimeout, 这样就能保证interval 间隔内如果时间持续触发，就不会执行 fn 函数
+        timeout = setTimeout(() => {
+            fn.apply(this, arguments);
+        }, 500);
+    };
+}
+``` 
+<b>节流</b>：高频事件触发，但在n秒内只会执行一次，所以节流会稀释函数的执行频率。
+
+``` javascript
+//每次触发事件时，如果当前有等待执行的延时函数，则直接return
+function throttle(fn) {
+    let canRun = true; // 通过闭包保存一个标记
+    return function () {
+         // 在函数开头判断标记是否为true，不为true则return
+        if (!canRun) return;
+         // 立即设置为false
+        canRun = false;
+        // 将外部传入的函数的执行放在setTimeout中
+        setTimeout(() => { 
+        // 最后在setTimeout执行完毕后再把标记设置为true(关键)表示可以执行下一次循环了。
+        // 当定时器没有执行的时候标记永远是false，在开头被return掉
+            fn.apply(this, arguments);
+            canRun = true;
+        }, 500);
+    };
+}
+```
+<b>区别：防抖动是将多次执行变为最后一次执行，节流是将多次执行变成每隔一段时间执行</b>

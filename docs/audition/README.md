@@ -45,6 +45,12 @@ $(document).ready(function () {
         <div></div>
     </div>
 
+Markdown 段首缩进：
+&ensp; or &#8194; 表示一个半角的空格
+&emsp; or &#8195;  表示一个全角的空格
+&emsp;&emsp; 两个全角的空格（用的比较多）
+&nbsp; or &#160; 不断行的空白格
+
 ## 表格  
 
 **代码1(有序)**
