@@ -26,7 +26,7 @@ module.exports = {
     ],
     sidebar:{
       '/audition/':['','css','javascript','ES6','vue'],
-      '/question/':[''],
+      '/question/':['','vue'],
   },
     // sidebarDepth : 2,
     lastUpdated: 'Last Updated', // string | boolean  最后更新时间

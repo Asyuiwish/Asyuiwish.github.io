@@ -262,3 +262,53 @@ function throttle(fn) {
 }
 ```
 <b>区别：防抖动是将多次执行变为最后一次执行，节流是将多次执行变成每隔一段时间执行</b>
+
+## setTimeout()与setInterval()
+### setTimeout()超时调用
+接受两个参数：要执行的代码和以毫秒表示的时间（代码执行前的等待时间）。其中，第一个参数可以是一个字符串（和eval()中使用的字符串一样），也可以是一个函数。第二个参数是一个表示等待多长时间的毫秒数。  
+``` js
+setTimeout("alert('hello')",2000)  //不推荐使用字符串
+
+setTimeout(function(){
+    alert('world');
+},2000);
+```
+调用setTimeout()之后，该方法会返回一个数值ID，表示超时调用。这个超时调用ID是计划执行代码的唯一标识符，可以通过它来取消超时调用。取消超时调用使用方法clearTimeout();  
+``` js
+var timeId = setTimeout(function(){
+    alert('world');
+},2000);
+
+clearTimeout(timeId);
+```
+
+### setInterval()间歇调用
+按照指定的时间间隔重复执行代码，直至间歇调用被取消或页面被卸载。
+``` js
+var num = 0,max = 10,intervalId = null;
+
+function incrementNumber(){
+    num ++;
+    if(num == max){
+        clearInterval(intervalId)
+        alert("Done");
+    }
+}
+intervalId = setInterval(incrementNumber,500);
+```
+但是通常情况下，很少真正使用间歇调用，因为后一个间歇调用可能在前一个间歇调用结束之前调用。因此，我们通常会使用超时调用来模拟间歇调用。
+``` js
+var num = 0,max = 10;
+
+function incrementNumber(){
+    num ++;
+    if(num < max){
+        setTimeout(incrementNumber,500);
+        console.log(num)
+    }
+    else{
+        alert("Done");
+    }
+}
+setTimeout(incrementNumber,500);
+```
