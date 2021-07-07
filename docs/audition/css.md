@@ -1,5 +1,17 @@
 # CSS
 
+## CSS的引入方式
+1. 内联（元素）
+2. 内嵌（style）
+3. 外链（link）
+4. 导入（@import）  
+   
+外链和导入的`区别`：  
+* link除了加载CSS外，还可以定义RSS等其他事务；@import只能加载CSS
+* link引用CSS时，在页面载入时同时加载， @import需要页面完全载入后加载
+* link无兼容问题，@import低版本的浏览器不支持
+* link支持使用Javascript控制DOM去改变样式；而@import不支持
+
 ## 响应式布局
 一个网站能够兼容多个终端  
 1.  百分比布局
@@ -18,18 +30,18 @@
 visiblity:hidden占据原先页面空间,`元素的子元素可以设置visibility: visible 显示出来`。  
 display:none 引起页面重绘和回流， visiblity:hidden 只引起页面重绘。
 
-## CSS的引入方式
-1. 内联（元素）
-2. 内嵌（style）
-3. 外链（link）
-4. 导入（@import）  
-   
-外链和导入的`区别`：  
-* link除了加载CSS外，还可以定义RSS等其他事务；@import只能加载CSS
-* link引用CSS时，在页面载入时同时加载， @import需要页面完全载入后加载
-* link无兼容问题，@import低版本的浏览器不支持
-* link支持使用Javascript控制DOM去改变样式；而@import不支持
-  
+## BFC
+BFC这个元素的垂直方向的边距会发生重叠，垂直方向的距离由margin决定，取最大值。  
+<b>BFC 的区域不会与浮动盒子重叠（清除浮动原理）。</b>  
+计算 BFC 的高度时，浮动元素也参与计算。  
+
+哪些元素会生成 BFC：
+* 根元素
+* float 属性不为 none
+* position 为 absolute 或 fixed
+* display 为 inline-block， table-cell， table-caption， flex， inline-flex
+* overflow 不为 visible
+
 ## 画一条0.5px的线
 * meta viewport(移动端)
 * 缩放`:after，transform：scaleY(0.5)` 
@@ -199,3 +211,231 @@ div:hover {
 * scale-down:保持原有尺寸比例。内容的尺寸与 none 或 contain 中的一个相同，取决于它们两个之间谁得到的对象尺寸会更小一些。  
 * initial:设置为默认值。  
 * inherit:从该元素的父元素继承属性。 
+
+## CSS常见布局实现
+### 水平居中
+* `text-align`  行内（inline-block也可）
+* `margin:0 auto`  必须定宽
+* 绝对定位
+  ``` css
+  <!-- 必须定宽 兼容性不好（ie9+）-->
+  .div{
+      width:100px;
+      left:50%;
+      transform:translateX(-50%);
+  }
+  ```
+* `display:flex`
+
+### 垂直居中
+* `line-height`  行内、多行
+* `vertical-align`  父级需`font-size:0`才可完全居中（适用img）
+* `transform:translateY(-50%);`  绝对定位同上 
+* `display:flex`
+* `display:table-cell`  父级需`display:table`否则宽高失效
+
+### 水平垂直居中
+* `line-height = height / text-align:center / vertical-align(同上)`
+* `transform:translate(-50%,-50%);`  绝对定位同上
+* `display:flex`
+* `display:table-cell`
+* 绝对居中
+  ``` css
+  .div{
+      position:absolute;
+      margin:auto;
+      top:0;
+      bottom:0;
+      left:0;
+      right:0;
+  }
+  ```
+* 视窗居中
+  ``` css
+  .div{
+      margin:50vh auto 0;
+      transform:translateY(-50%);
+  }
+  ```
+
+### 两列布局
+#### 左列定宽右列自适应
+* ``` scss
+  #parent{
+      #left{
+          float:left;
+          width:100px;
+      }
+      #right{
+          margin:100px;
+      }
+  }
+  ```
+* 触发BFC达到自适应
+  ``` scss
+  #parent{
+      #left{
+          float:left;
+          width:100px;
+      }
+      #right{
+          overflow:hidden;
+      }
+  }
+  ```
+* margin失效，不支持ie8
+  ``` scss
+  #parent{
+      display:table;
+      #left{
+          width:100px;
+          display:table-cell
+      }
+      #right{
+          display:table-cell
+      }
+  }
+  ```
+* 绝对定位
+* flex布局
+  ``` scss
+  #parent{
+      display:flex;
+      #left{
+          width:100px;
+      }
+      #right{
+          flex:1
+      }
+  }
+  ```
+* Grid布局
+  ``` scss
+  #parent{
+      display:grid;
+      grid-template-columns:100px auto;
+  }
+  ```
+
+#### 左列自适应右列定宽
+* 触发BFC达到自适应
+  ``` scss
+  #parent{
+      #left{
+          overflow:hidden;
+      }
+      #right{
+          float：right;
+          width:100px;
+          margin-left:-100px;
+      }
+  }
+  ```
+* ``` scss
+  #parent{
+      padding-left:100px;
+      #left{
+          float:left;
+          margin-left:-100px;
+      }
+      #right{
+          float：right;
+          width:100px;
+      }
+  }
+  ```
+* table / 绝对定位 / flex / Grid 同上
+
+#### 一列不定，一列自适应
+* BFC / table /flex 同上
+* Grid布局
+  ``` scss
+  #parent{
+      display:grid;
+      grid-template-columns:auto 1fr;
+     // 左不定宽，右自适应
+  }
+  ```
+  ::: tip
+   fr是一个相对尺寸单位，表示剩余空间做等分，此项分配到的百分比(如果只有一个项使用此单位，那就占剩余空间的100%
+  :::
+
+### 三列布局
+#### 两列定宽，一列自适应
+* ``` scss
+  #parent{
+      min-width:300px;
+      //防止宽度不够子元素换行
+      #left,#center{
+          float:left;
+      }
+      #right{
+          margin-left:200px;
+      }
+  }
+  ```
+* BFC / 绝对定位 / flex / table / grid 同上
+
+#### 两列定宽，中间自适应
+* ``` scss
+  #parent{
+      #left{
+          float:left;
+      }
+      #center{
+          margin:0 100px 0 100px;
+      }
+      #right{
+          float:right;
+      }
+      #footer{
+          clear:both;
+          //注意清除浮动
+      }
+  }
+  ```
+* 绝对定位 / flex / table 同上
+* Grid布局
+  ``` scss
+  #parent{
+      display:grid;
+      //设定三行
+      grid-template-rows:60px auto 60px;
+      //设定三列
+      grid-template-columns:100px auto 100px;
+      //设置网格区域分布
+      grid-template-areas:"header header header"
+                          "leftside main rightside"
+                          "footer footer footer";
+      #left{
+          grid-area:leftside;
+      }
+      #right{
+          grid-area:rightside;
+      }
+      //指定在网格的哪个区域
+  }
+  ```
+
+### 多列布局
+* float（注意清除浮动） / flex / table 同上 
+* Grid布局
+  ``` scss
+  #parent{
+      display:grid;
+      grid-template-columns:repeat(6,1fr);
+      //6列
+  }
+  ```
+
+### 九宫格布局
+* flex / table 同上 
+* Grid布局
+  ``` scss
+  #parent{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      grid-template-rows:repeat(3,1fr);
+      //grid-template-rows:repeat(1fr,1fr,1fr);
+  }
+  ```

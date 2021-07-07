@@ -1,4 +1,4 @@
-# js
+# JS
 
 ## 基本数据类型
 ![六大基本数据类型](../.vuepress/public/js_1.png)
