@@ -275,7 +275,7 @@ export default new Vue()
 ### VUEX
 使用vuex，新建一个 sotre文件夹，分开维护 actions mutations getters
 
-## v-modle双向绑定
+## v-model双向绑定
 <b>原理：通过Object.defineProperty()方法来进行数据劫持以及发布者-订阅模式实现</b>  
 
 数据劫持：vue实例化的时候会去遍历所有的属性，给这些属性添加get和set方法进行数据劫持。  
