@@ -15,6 +15,7 @@ module.exports = {
         { text: '首页', link: '/' },
         { text: '细细碎碎的知识点', link: '/audition/' },
         { text: '踩坑辣写bug辣', link: '/question/' },
+        { text: '记一些常用方法', link: '/function/' },
         {
           text: '开发ing',
           items: [
@@ -25,8 +26,9 @@ module.exports = {
         { text: 'GitHub', link:'https://github.com/Asyuiwish' }
     ],
     sidebar:{
-      '/audition/':['','browser','css','javascript','ES6','vue'],
-      '/question/':['','vue'],
+      '/audition/':['','browser','css','javascript','ES6','vue','browser'],
+      '/question/':['','vue','rem','attention'],
+      '/function/':[''],
   },
     // sidebarDepth : 2,
     lastUpdated: 'Last Updated', // string | boolean  最后更新时间
