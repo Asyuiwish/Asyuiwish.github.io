@@ -439,3 +439,17 @@ div:hover {
       //grid-template-rows:repeat(1fr,1fr,1fr);
   }
   ```
+
+## font-face
+需要UI提供.ttf文件,将.ttf文件转换为.otf/.eot/.woff/.woff2格式【百度在线转换】  
+文件路径：`common/font/xxx.ttf` `common/font/xxx.otf` `common/font/xxx.eot` ......【一种字体需要多个格式文件】
+``` css
+@font-face{
+    font-family: myFirstFont;
+    src: url('Sansation_Light.ttf'),
+    url('Sansation_Light.eot'); /* IE9 */
+}
+div{
+    font-family: myFirstFont;
+}
+```

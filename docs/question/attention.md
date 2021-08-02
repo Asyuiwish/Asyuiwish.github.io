@@ -6,9 +6,12 @@
 4. 对于margin/padding的选择：
    1. 希望将其他部分包裹在盒子内作为一整个模块来看待则用padding
    2. 如果是分开的页面模块则用margin
-5. li之间有空隙：`ul font-size = 0`或者将<li></li><li></li>连着写
+5. li之间有空隙：`ul font-size = 0`或者将`<li></li><li></li>`连着写
 6. 注意不要让内部盒子超出外部盒子，例如消除最后一个margin-bottom
 7. 尽量避免使用：first-child这一类的选择器
 8. icon以及一些stage可以切成一整张图，使用`background-position`定位
+9. 尽量不要使用img而使用background【尽量不用就是别用】
+
 ## 命名规范
+
 ## 将图标转换为font

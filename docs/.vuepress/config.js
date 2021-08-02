@@ -26,7 +26,7 @@ module.exports = {
         { text: 'GitHub', link:'https://github.com/Asyuiwish' }
     ],
     sidebar:{
-      '/audition/':['','browser','css','javascript','ES6','vue','browser'],
+      '/audition/':['','browser','css','javascript','ES6','vue','js-func','jq-func'],
       '/question/':['','vue','rem','attention'],
       '/function/':[''],
   },
