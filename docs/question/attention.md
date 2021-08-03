@@ -2,7 +2,7 @@
 ## 基础需要注意的点
 1. p标签给行高
 2. 尽量使用margin-bottom而不是margin-top
-3.  
+3. 写了float之后一定一定一定要清除浮动
 4. 对于margin/padding的选择：
    1. 希望将其他部分包裹在盒子内作为一整个模块来看待则用padding
    2. 如果是分开的页面模块则用margin
@@ -11,6 +11,7 @@
 7. 尽量避免使用：first-child这一类的选择器
 8. icon以及一些stage可以切成一整张图，使用`background-position`定位
 9. 尽量不要使用img而使用background【尽量不用就是别用】
+10. 写渐变的时候加一个纯色底色，防止有些浏览器不支持导致样式错乱
 
 ## 命名规范
 
