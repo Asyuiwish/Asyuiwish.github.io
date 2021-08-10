@@ -27,7 +27,7 @@ module.exports = {
     ],
     sidebar:{
       '/audition/':['','browser','css','javascript','ES6','vue','js-func','jq-func'],
-      '/question/':['','vue','rem','attention'],
+      '/question/':['','vue','rem','attention','css'],
       '/function/':[''],
   },
     // sidebarDepth : 2,
