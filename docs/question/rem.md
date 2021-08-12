@@ -15,5 +15,9 @@ h1 { font-size: 2.4rem;/*2.4 × 10px = 24px*/}
 数据量大：所有的图片，盒子都需要给一个准确的值；才能保证不同机型的适配。
 :::
 
+### 为什么设置了line-height之后的高度和height不一样    
+![css行高与高](../.vuepress/public/rem_1.png)   
 
+![css行高与高](../.vuepress/public/rem_2.png)  
 
+line-height高度只能为整数，根据rem换算为px时会自动舍弃小数，这一特点也会造成使用rem布局时对于没有定height只有line-height的行盒在页面尺寸变化时导致页面存在较大误差。
