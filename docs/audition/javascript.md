@@ -231,8 +231,9 @@ stringify方法：将JS对象序列化成JSON字符。
 function debounce(fn) {
     let timeout = null; // 创建一个标记用来存放定时器的返回值
     return function () {
-        // 每当用户输入的时候把前一个 setTimeout clear 掉
-        clearTimeout(timeout); 
+        if(timeout){
+            clearTimeout(timeout) 
+        }
         // 然后又创建一个新的 setTimeout, 这样就能保证interval 间隔内如果时间持续触发，就不会执行 fn 函数
         timeout = setTimeout(() => {
             fn.apply(this, arguments);
@@ -312,3 +313,30 @@ function incrementNumber(){
 }
 setTimeout(incrementNumber,500);
 ```
+
+### 执行队列问题
+setTimeout并不一定是在到了指定时间的时候就把事件推到任务队列中，只有当在任务队列中的上一个setTimeout事件被主线程执行后，才会继续再次在到了指定时间的时候把事件推到任务队列，那么setTimeout的事件执行肯定比指定的时间要久，具体相差多少跟代码执行时间有关  
+setInterval则是每次都精确的隔一段时间就向任务队列推入一个事件，无论上一个setInterval事件是否已经执行，所以有可能存在setInterval的事件任务累积，导致setInterval的代码重复连续执行多次，影响页面性能。  
+
+### this的指向问题  
+由setTimeout()调用的代码运行在与所在函数完全分离的执行环境上。这会导致，这些代码中包含的 this 关键字在非严格模式会指向 window (或全局)对象  
+
+### setTimeout间隔设置为0的意义  
+`setTimeout(fn,0)`的含义是，指定某个任务在主线程最早可得的空闲时间执行，也就是说，尽可能早得执行。它在"任务队列"的尾部添加一个事件，因此要等到同步任务和"任务队列"现有的事件都处理完，才会得到执行。
+>同步代码转异步代码，为了手动调配优先级不高的代码靠后执行。
+
+### 最小延时和最大延时  
+最小：在浏览器中，setTimeout()/setInterval() 的每调用一次定时器的最小间隔是4ms  
+最大：包括 IE, Chrome, Safari, Firefox 在内的浏览器其内部以32位带符号整数存储延时。这就会导致如果一个延时(delay)大于 2147483647 毫秒 (大约24.8 天)时就会溢出，导致定时器将会被立即执行。
+
+
+## 异步
+### 前端什么时候需要使用异步？
+* 定时任务：`setTimeout`,`setInverval`
+* 网络请求：ajax请求，动态`<img>`加载
+* 事件绑定  
+
+### 同步和异步的区别
+* 同步会阻塞代码执行，异步不会
+* `alert`是同步，`setTimeout`是异步
+

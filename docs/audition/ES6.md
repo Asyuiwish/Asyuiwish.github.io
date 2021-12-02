@@ -44,6 +44,22 @@
   console.log(res); // undefined 
   ```
 
+### 写一个能遍历对象和数组的forEach
+  ``` js
+ function forEach(obj, fn) {
+   if(obj instanceof Array) {
+     obj.forEach(function (item, index) {
+       fn(index, item)
+     })
+   }
+   else{
+     for(key in obj) {
+       fn(key, obj[key])
+     }
+   }
+ }
+  ```
+
 * `map(value,index,array)`映射数组  
   ``` js
   var arr = [1,2,3,4]; 
