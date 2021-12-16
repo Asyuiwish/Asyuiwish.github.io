@@ -12,7 +12,19 @@
 8. icon以及一些stage可以切成一整张图，使用`background-position`定位
 9. 尽量不要使用img而使用background【尽量不用就是别用】
 10. 写渐变的时候加一个纯色底色，防止有些浏览器不支持导致样式错乱
+11. 写css样式时尽量不级联，不要一层一层嵌套css
+12. 给图片、css、js文件引入时添加?v=日期格式版本号
 
 ## 命名规范
 
+__ 双下划线分隔  
+--active 状态 
+
 ## 将图标转换为font
+
+## 104语法代码
+chmod + r* 权限修改  
+rm -rf xxx.js 删除文件/文件夹
+
+## cms相关
+新建站点/修改title、description、keywords
