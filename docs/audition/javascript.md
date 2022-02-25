@@ -419,7 +419,7 @@ var a = 0;
 
 function fn () {
   var b = 1;
-  console.log(a); // 输出 1
+  console.log(a); // 输出 0
 }
 
 // 全局作用域并不能访问 fn 函数中定义的 b 变量
