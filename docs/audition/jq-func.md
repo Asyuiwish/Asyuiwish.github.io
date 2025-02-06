@@ -1,4 +1,4 @@
-# Jq常用方法
+# Jq常用函数
 ## jQuery.inArray()方法
 定义：用于在数组中查找指定值【判断某个值是否在数组中】，并返回它的索引值（如果没有找到，则返回-1）  
 语法：`$.inArray( value, array [, fromIndex ] )`
