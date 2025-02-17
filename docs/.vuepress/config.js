@@ -28,12 +28,8 @@ module.exports = {
                 link: '/question/'
             },
             {
-                text: '常用方法',
-                items: [{
-                        text: 'js/jq',
-                        link: '/function/'
-                    }
-                ]
+                text: '常用方法实例',
+                link: '/function/'
             },
             {
                 text: '开发ing',
@@ -55,7 +51,7 @@ module.exports = {
         sidebar: {
             '/audition/': ['', 'browser', 'css', 'javascript', 'ES6', 'vue', 'js-func', 'jq-func'],
             '/question/': ['', 'vue', 'rem', 'attention', 'css', 'browser'],
-            '/function/': ['']
+            '/function/': ['', 'css','vue']
         },
         scss: {
             includePaths: [path.join(__dirname, '../../styles')]
